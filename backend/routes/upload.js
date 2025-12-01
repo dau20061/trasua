@@ -15,11 +15,15 @@ router.post('/image', upload.single('image'), async (req, res) => {
       });
     }
 
+    console.log('📤 Uploading to Cloudinary:', req.file.filename);
+
     // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: 'drink-order',
       resource_type: 'image',
     });
+
+    console.log('✅ Cloudinary upload success:', result.secure_url);
 
     // Xóa file local sau khi upload lên Cloudinary
     try {
