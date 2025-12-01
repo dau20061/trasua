@@ -85,7 +85,11 @@ function Admin() {
         setUploading(true);
         try {
           const uploadResult = await uploadService.uploadImage(imageFile);
-          imageUrl = `${import.meta.env.VITE_API_URL.replace('/api', '')}${uploadResult.data.url}`;
+          // Nếu là Cloudinary URL (bắt đầu bằng https://res.cloudinary.com) thì dùng trực tiếp
+          // Nếu không thì ghép với backend URL
+          imageUrl = uploadResult.data.url.startsWith('https://res.cloudinary.com')
+            ? uploadResult.data.url
+            : `${import.meta.env.VITE_API_URL.replace('/api', '')}${uploadResult.data.url}`;
         } catch (uploadError) {
           console.error('Lỗi upload ảnh:', uploadError);
           alert('Không thể upload ảnh. Vui lòng thử lại!');
