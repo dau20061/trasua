@@ -22,7 +22,13 @@ router.post('/image', upload.single('image'), async (req, res) => {
     });
 
     // Xóa file local sau khi upload lên Cloudinary
-    fs.unlinkSync(req.file.path);
+    try {
+      if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+    } catch (unlinkError) {
+      console.warn('Không thể xóa file local:', unlinkError.message);
+    }
     
     res.json({
       success: true,
@@ -35,9 +41,13 @@ router.post('/image', upload.single('image'), async (req, res) => {
       },
     });
   } catch (error) {
-    // Xóa file nếu có lỗi
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
+    // Xóa file nếu có lỗi và file tồn tại
+    try {
+      if (req.file && fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+    } catch (unlinkError) {
+      console.warn('Không thể xóa file local:', unlinkError.message);
     }
     res.status(500).json({
       success: false,
