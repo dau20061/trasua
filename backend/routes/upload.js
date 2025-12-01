@@ -1,10 +1,12 @@
 import express from 'express';
 import upload from '../middleware/upload.js';
+import cloudinary from '../config/cloudinary.js';
+import fs from 'fs';
 
 const router = express.Router();
 
 // Upload single image
-router.post('/image', upload.single('image'), (req, res) => {
+router.post('/image', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -13,19 +15,30 @@ router.post('/image', upload.single('image'), (req, res) => {
       });
     }
 
-    // Trả về URL của ảnh
-    const imageUrl = `/uploads/${req.file.filename}`;
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'drink-order',
+      resource_type: 'image',
+    });
+
+    // Xóa file local sau khi upload lên Cloudinary
+    fs.unlinkSync(req.file.path);
     
     res.json({
       success: true,
       message: 'Upload ảnh thành công',
       data: {
         filename: req.file.filename,
-        url: imageUrl,
+        url: result.secure_url,
+        publicId: result.public_id,
         size: req.file.size,
       },
     });
   } catch (error) {
+    // Xóa file nếu có lỗi
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
     res.status(500).json({
       success: false,
       message: 'Lỗi khi upload ảnh',
