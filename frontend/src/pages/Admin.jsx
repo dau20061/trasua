@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { drinkService, categoryService, uploadService } from '../services/api';
 import './Admin.css';
 
@@ -145,6 +146,17 @@ function Admin() {
     }
   };
 
+  const handleToggleBestseller = async (drinkId) => {
+    try {
+      const response = await drinkService.toggleBestseller(drinkId);
+      alert(response.message);
+      loadData();
+    } catch (error) {
+      console.error('Lỗi khi cập nhật bestseller:', error);
+      alert('Không thể cập nhật. Vui lòng thử lại!');
+    }
+  };
+
   const handleAddNew = () => {
     resetForm();
     setShowModal(true);
@@ -176,9 +188,14 @@ function Admin() {
     <div className="admin">
       <div className="admin-header">
         <h1>🛠️ Quản lý thực đơn</h1>
-        <button className="btn btn-primary" onClick={handleAddNew}>
-          ➕ Thêm món mới
-        </button>
+        <div className="admin-header-actions">
+          <Link to="/admin/categories" className="btn btn-secondary">
+            📂 Quản lý danh mục
+          </Link>
+          <button className="btn btn-primary" onClick={handleAddNew}>
+            ➕ Thêm món mới
+          </button>
+        </div>
       </div>
 
       <div className="admin-stats">
@@ -217,13 +234,23 @@ function Admin() {
                     }}
                   />
                 </td>
-                <td className="table-name">{drink.name}</td>
+                <td className="table-name">
+                  {drink.isBestseller && <span className="bestseller-badge">⭐ Bestseller</span>}
+                  {drink.name}
+                </td>
                 <td className="table-price">{drink.price.toLocaleString('vi-VN')}₫</td>
                 <td>
                   <span className="category-badge">{drink.category}</span>
                 </td>
                 <td className="table-description">{drink.description}</td>
                 <td className="table-actions">
+                  <button 
+                    className={`btn-action ${drink.isBestseller ? 'btn-bestseller active' : 'btn-bestseller'}`}
+                    onClick={() => handleToggleBestseller(drink._id)}
+                    title={drink.isBestseller ? 'Bỏ đánh dấu bestseller' : 'Đánh dấu bestseller'}
+                  >
+                    ⭐
+                  </button>
                   <button 
                     className="btn-action btn-edit"
                     onClick={() => handleEdit(drink)}
@@ -294,7 +321,7 @@ function Admin() {
                   >
                     <option value="">-- Chọn nhóm món --</option>
                     {categories.map((cat) => (
-                      <option key={cat._id} value={cat.name}>
+                      <option key={cat._id} value={cat.slug}>
                         {cat.icon} {cat.name}
                       </option>
                     ))}
@@ -371,6 +398,7 @@ function Admin() {
           </div>
         </div>
       )}
+
     </div>
   );
 }

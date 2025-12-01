@@ -1,0 +1,301 @@
+.category-management {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--off-white) 0%, var(--light-gray) 100%);
+  padding: var(--spacing-3xl) 0;
+}
+
+.category-loading {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  font-size: var(--font-xl);
+  color: var(--gray);
+}
+
+/* Header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+  padding: 0 var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.category-header h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* Stats */
+.category-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  padding: 0 var(--spacing-xl);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Category Grid */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  padding: 0 var(--spacing-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.category-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-green-light);
+}
+
+.category-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-md);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.category-name {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.category-slug {
+  font-size: var(--font-sm);
+  color: var(--gray);
+  font-family: 'Courier New', monospace;
+  background: var(--off-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  display: inline-block;
+  margin-bottom: var(--spacing-md);
+}
+
+.category-description {
+  font-size: var(--font-sm);
+  color: var(--gray);
+  margin: var(--spacing-md) 0;
+  line-height: 1.6;
+}
+
+.category-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 2px solid var(--light-gray);
+}
+
+.category-actions .btn-action {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.category-actions .btn-edit {
+  background: var(--primary-green-light);
+  color: var(--text-dark);
+}
+
+.category-actions .btn-edit:hover {
+  background: var(--primary-green);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.category-actions .btn-delete {
+  background: var(--light-gray);
+  color: var(--text-dark);
+}
+
+.category-actions .btn-delete:hover {
+  background: #ffebee;
+  color: #c62828;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Form */
+.category-form {
+  padding: var(--spacing-xl);
+}
+
+.category-form .form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.category-form label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-base);
+}
+
+.category-form input,
+.category-form textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  transition: all var(--transition-base);
+  font-family: inherit;
+}
+
+.category-form input:focus,
+.category-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.1);
+}
+
+.category-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Emoji Selector */
+.emoji-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--light-gray);
+}
+
+.emoji-btn {
+  font-size: 2rem;
+  padding: var(--spacing-sm);
+  background: var(--white);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-green-light);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.emoji-btn.selected {
+  border-color: var(--primary-green);
+  background: var(--primary-green-light);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--light-gray);
+}
+
+.form-actions .btn {
+  min-width: 120px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .category-management {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .category-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 var(--spacing-md);
+  }
+
+  .category-header .btn {
+    width: 100%;
+  }
+
+  .category-stats {
+    padding: 0 var(--spacing-md);
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--spacing-md);
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-header h1 {
+    font-size: var(--font-xl);
+  }
+
+  .category-icon {
+    font-size: 3rem;
+  }
+
+  .category-name {
+    font-size: var(--font-lg);
+  }
+}
+
+/* Animation */
+@keyframes slideInCategory {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-card {
+  animation: slideInCategory 0.3s ease-out;
+}

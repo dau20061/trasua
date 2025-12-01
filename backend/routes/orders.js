@@ -3,6 +3,7 @@ import {
   getAllOrders,
   getOrderById,
   createOrder,
+  createOrderWithEmail,
   updateOrderStatus,
   updateOrder,
   cancelOrder,
@@ -16,6 +17,7 @@ router.get('/', getAllOrders);
 router.get('/stats', getOrderStats);
 router.get('/:id', getOrderById);
 router.post('/', createOrder);
+router.post('/checkout', createOrderWithEmail); // Route mới cho checkout với email
 router.patch('/:id/status', updateOrderStatus);
 router.put('/:id', updateOrder);
 router.patch('/:id/cancel', cancelOrder);

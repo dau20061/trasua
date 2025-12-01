@@ -13,7 +13,8 @@ export const getAllDrinks = async (req, res) => {
       filter.isAvailable = available === 'true';
     }
 
-    const drinks = await Drink.find(filter).sort({ createdAt: -1 });
+    // Sort: bestseller lên đầu, sau đó theo thời gian tạo
+    const drinks = await Drink.find(filter).sort({ isBestseller: -1, createdAt: -1 });
     
     res.json({
       success: true,
@@ -153,6 +154,35 @@ export const searchDrinks = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Lỗi khi tìm kiếm đồ uống',
+      error: error.message,
+    });
+  }
+};
+
+// Toggle bestseller status
+export const toggleBestseller = async (req, res) => {
+  try {
+    const drink = await Drink.findById(req.params.id);
+
+    if (!drink) {
+      return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy đồ uống',
+      });
+    }
+
+    drink.isBestseller = !drink.isBestseller;
+    await drink.save();
+
+    res.json({
+      success: true,
+      message: drink.isBestseller ? 'Đã đánh dấu là bestseller' : 'Đã bỏ đánh dấu bestseller',
+      data: drink,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi cập nhật bestseller',
       error: error.message,
     });
   }

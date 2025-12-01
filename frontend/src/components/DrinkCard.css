@@ -11,6 +11,11 @@
   position: relative;
 }
 
+.drink-card.bestseller {
+  border-color: #ffeb3b;
+  box-shadow: 0 4px 20px rgba(255, 235, 59, 0.3);
+}
+
 .drink-card::before {
   content: '';
   position: absolute;
@@ -26,8 +31,28 @@
   transition: opacity var(--transition-base);
 }
 
+.drink-card.bestseller::before {
+  background: linear-gradient(135deg, #fff9c4, #fdd835);
+}
+
 .drink-card:hover::before {
   opacity: 1;
+}
+
+.bestseller-ribbon {
+  position: absolute;
+  top: 12px;
+  right: -35px;
+  background: linear-gradient(135deg, #fff9c4 0%, #ffeb3b 100%);
+  color: #f57f17;
+  padding: 4px 40px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .drink-card:hover {

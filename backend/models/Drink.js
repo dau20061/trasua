@@ -19,7 +19,6 @@ const drinkSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Danh mục không được để trống'],
-      enum: ['Trà sữa', 'Cà phê', 'Sinh tố', 'Nước ép', 'Trà trái cây'],
     },
     image: {
       type: String,
@@ -28,6 +27,10 @@ const drinkSchema = new mongoose.Schema(
     isAvailable: {
       type: Boolean,
       default: true,
+    },
+    isBestseller: {
+      type: Boolean,
+      default: false,
     },
     ingredients: [
       {

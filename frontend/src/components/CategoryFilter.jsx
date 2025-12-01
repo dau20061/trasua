@@ -13,7 +13,7 @@ function CategoryFilter({ selectedCategory, onSelectCategory }) {
   const loadCategories = async () => {
     try {
       const response = await categoryService.getAllCategories();
-      setCategories([{ id: 0, name: 'Tất cả', slug: 'all' }, ...response.data]);
+      setCategories([{ _id: 'all', name: 'Tất cả', slug: 'all' }, ...response.data]);
     } catch (error) {
       console.error('Lỗi khi tải danh mục:', error);
     } finally {
@@ -30,7 +30,7 @@ function CategoryFilter({ selectedCategory, onSelectCategory }) {
       <div className="category-filter-container">
         {categories.map((category) => (
           <button
-            key={category.id}
+            key={category._id}
             className={`category-btn ${selectedCategory === category.slug ? 'active' : ''}`}
             onClick={() => onSelectCategory(category.slug)}
           >

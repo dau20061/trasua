@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: drink-order-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: SHOP_NAME
+        value: Quán Trà Sữa
+      - key: SHOP_EMAIL
+        sync: false

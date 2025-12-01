@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import './Header.css';
 
 function Header() {
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
+
   return (
     <header className="header">
       <div className="container">
@@ -13,11 +17,11 @@ function Header() {
           <nav className="nav">
             <Link to="/" className="nav-link">Trang chủ</Link>
             <Link to="/menu" className="nav-link">Thực đơn</Link>
-            <Link to="/admin" className="nav-link">Quản lý</Link>
-            <Link to="/orders" className="nav-link">Đơn hàng</Link>
             <Link to="/cart" className="nav-link cart-link">
               <span>🛒</span>
-              <span className="cart-badge">0</span>
+              {totalItems > 0 && (
+                <span className="cart-badge">{totalItems}</span>
+              )}
             </Link>
           </nav>
         </div>

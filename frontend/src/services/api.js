@@ -39,6 +39,12 @@ export const drinkService = {
     const response = await api.delete(`/drinks/${id}`);
     return response.data;
   },
+
+  // Toggle bestseller
+  toggleBestseller: async (id) => {
+    const response = await api.patch(`/drinks/${id}/bestseller`);
+    return response.data;
+  },
 };
 
 export const categoryService = {
@@ -48,9 +54,33 @@ export const categoryService = {
     return response.data;
   },
 
+  // Lấy một danh mục theo ID
+  getCategoryById: async (id) => {
+    const response = await api.get(`/categories/${id}`);
+    return response.data;
+  },
+
   // Lấy đồ uống theo danh mục
   getDrinksByCategory: async (slug) => {
     const response = await api.get(`/categories/${slug}/drinks`);
+    return response.data;
+  },
+
+  // Thêm danh mục mới
+  createCategory: async (categoryData) => {
+    const response = await api.post('/categories', categoryData);
+    return response.data;
+  },
+
+  // Cập nhật danh mục
+  updateCategory: async (id, categoryData) => {
+    const response = await api.put(`/categories/${id}`, categoryData);
+    return response.data;
+  },
+
+  // Xóa danh mục
+  deleteCategory: async (id) => {
+    const response = await api.delete(`/categories/${id}`);
     return response.data;
   },
 };
